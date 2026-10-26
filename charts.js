@@ -18,6 +18,7 @@
     return element;
   };
   const number = value => Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+  const unitFor = (series, value) => series.kind === "line" && value === 1 ? "pattern" : series.unit;
   const escape = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
   function createChart(id, title, height, description) {
@@ -27,8 +28,7 @@
     canvas.tabIndex = 0;
     canvas.setAttribute("role", "region");
     canvas.setAttribute("aria-label", `${title}. Scroll horizontally on narrow screens.`);
-    const svg = make("svg", {viewBox: `0 0 640 ${height}`, "aria-labelledby": `${id}-title ${id}-description`});
-    add(svg, "title", {id: `${id}-title`}, title);
+    const svg = make("svg", {viewBox: `0 0 640 ${height}`, "aria-label": title, "aria-describedby": `${id}-description`});
     add(svg, "desc", {id: `${id}-description`}, description);
     const plot = add(svg, "g", {});
     canvas.append(svg);
@@ -42,32 +42,70 @@
     tip.setAttribute("role", "tooltip");
     tip.hidden = true;
     root.append(canvas, legend, tip);
-    const hide = () => { tip.hidden = true; };
-    root.addEventListener("mouseleave", hide);
+    let selected = null, cursor = null, leaving;
+    const hide = () => {
+      clearTimeout(leaving);
+      tip.hidden = true;
+      selected = null;
+      plot.querySelectorAll(".is-selected").forEach(element => element.classList.remove("is-selected"));
+    };
     root.addEventListener("keydown", event => { if (event.key === "Escape") hide(); });
     root.addEventListener("focusout", event => { if (!root.contains(event.relatedTarget)) hide(); });
     document.addEventListener("pointerdown", event => { if (!root.contains(event.target)) hide(); });
-    function show(target, content, event) {
+    // Float beside the cursor (or the focused item when using the keyboard): to its
+    // right on the chart's left half and to its left on the right half, flipping if
+    // that side would leave the viewport. Too narrow for either side: go below or above.
+    function place() {
+      const gap = 16, margin = 8;
+      const anchor = cursor && cursor.target === selected
+        ? {left: cursor.x, right: cursor.x, top: cursor.y, bottom: cursor.y}
+        : selected.getBoundingClientRect();
+      const chart = canvas.getBoundingClientRect(), bounds = root.getBoundingClientRect();
+      const viewWidth = document.documentElement.clientWidth, viewHeight = window.innerHeight;
+      const width = tip.offsetWidth, height = tip.offsetHeight;
+      const right = anchor.right + gap, left = anchor.left - gap - width;
+      const fitsRight = right + width <= viewWidth - margin, fitsLeft = left >= margin;
+      const preferLeft = anchor.left + anchor.right > chart.left + chart.right;
+      let x, y;
+      if (fitsRight || fitsLeft) {
+        x = (preferLeft ? fitsLeft : !fitsRight) ? left : right;
+        y = (anchor.top + anchor.bottom - height) / 2;
+      } else {
+        x = (anchor.left + anchor.right - width) / 2;
+        y = anchor.bottom + gap + height <= viewHeight - margin ? anchor.bottom + gap : anchor.top - gap - height;
+      }
+      x = Math.max(margin, Math.min(viewWidth - margin - width, x));
+      y = Math.max(margin, Math.min(viewHeight - margin - height, y));
+      tip.style.left = `${x - bounds.left}px`;
+      tip.style.top = `${y - bounds.top}px`;
+    }
+    function show(target, content) {
+      clearTimeout(leaving);
       tip.innerHTML = content;
       tip.hidden = false;
-      const bounds = root.getBoundingClientRect();
-      const item = target.getBoundingClientRect();
-      const x = event && event.clientX ? event.clientX - bounds.left : item.left + item.width / 2 - bounds.left;
-      const y = event && event.clientY ? event.clientY - bounds.top : item.top - bounds.top + 30;
-      const maxLeft = Math.max(8, bounds.width - tip.offsetWidth - 8);
-      tip.style.left = `${Math.max(8, Math.min(maxLeft, x - tip.offsetWidth / 2))}px`;
-      tip.style.top = `${Math.max(10, Math.min(canvas.offsetHeight - tip.offsetHeight - 8, y + 14))}px`;
+      plot.querySelectorAll(".is-selected").forEach(element => element.classList.remove("is-selected"));
+      target.classList.add("is-selected");
+      selected = target;
+      place();
     }
     function interactive(target, label, content) {
+      const follow = event => { cursor = {x: event.clientX, y: event.clientY, target}; };
       target.setAttribute("tabindex", "0");
       target.setAttribute("role", "button");
       target.setAttribute("aria-label", label);
       target.setAttribute("aria-describedby", tip.id);
       target.classList.add("chart-target");
-      target.addEventListener("pointerenter", event => show(target, content(), event));
-      target.addEventListener("pointermove", event => show(target, content(), event));
+      target.addEventListener("pointerenter", event => { follow(event); show(target, content()); });
+      target.addEventListener("pointermove", event => { follow(event); if (selected === target) place(); });
+      // Touch keeps the tooltip until the next tap; a mouse hides it on leaving,
+      // after a short delay so crossing the gap between two items does not flicker.
+      target.addEventListener("pointerleave", event => {
+        if (event.pointerType === "touch") return;
+        cursor = null;
+        leaving = setTimeout(hide, 80);
+      });
       target.addEventListener("focus", () => show(target, content()));
-      target.addEventListener("click", event => show(target, content(), event));
+      target.addEventListener("click", () => show(target, content()));
       target.addEventListener("keydown", event => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault(); show(target, content());
@@ -148,8 +186,8 @@
       const group=add(plot,"g",{});
       add(group,"rect",{x:center(index)-width/16+2,y:top-6,width:width/8-4,height:bottom-top+40,class:"chart-focus-band",rx:3});
       const values=()=>participantSeries.filter(series=>series.visible).map(series=>
-        `<div class="tooltip-row"><span><i style="background:${series.color}"></i>${escape(series.label)}</span><b>${data.participants[series.key][index]} <small>${series.unit}</small></b></div>`).join("");
-      const aria=participantSeries.filter(s=>s.visible).map(s=>`${s.label}: ${data.participants[s.key][index]} ${s.unit}`).join("; ");
+        `<div class="tooltip-row"><span><i style="background:${series.color}"></i>${escape(series.label)}</span><b>${data.participants[series.key][index]} <small>${unitFor(series,data.participants[series.key][index])}</small></b></div>`).join("");
+      const aria=participantSeries.filter(s=>s.visible).map(s=>`${s.label}: ${data.participants[s.key][index]} ${unitFor(s,data.participants[s.key][index])}`).join("; ");
       participantChart.interactive(group,`${label}. ${aria}`,()=>`<strong class="tooltip-title">Participant ${label}</strong>${values()||"No series selected."}`);
     });
   }

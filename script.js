@@ -21,15 +21,18 @@ for (const [key, id, label] of [
     availableResources++;
   } catch { /* Leave unconfigured or invalid links marked coming soon. */ }
 }
-if (availableResources === 2) {
-  document.getElementById("resources").textContent = "Paper and source code are available through the links above.";
-} else if (availableResources === 1) {
-  document.getElementById("resources").textContent = "Additional research resources will be linked as they become available.";
+const resourceNote = document.getElementById("resources");
+if (resourceNote && availableResources === 2) {
+  resourceNote.textContent = "Paper and source code are available through the links above.";
+} else if (resourceNote && availableResources === 1) {
+  resourceNote.textContent = "Additional research resources will be linked as they become available.";
 }
 
+let copyResetTimer;
 document.getElementById("copy-reference").addEventListener("click", async () => {
   const text = document.getElementById("reference-text").textContent;
   const status = document.getElementById("copy-status");
+  const button = document.getElementById("copy-reference");
   try {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(text);
@@ -46,7 +49,18 @@ document.getElementById("copy-reference").addEventListener("click", async () => 
       if (!copied) throw new Error("Copy unavailable");
     }
     status.textContent = "Copied.";
+    status.classList.remove("copy-error");
+    button.dataset.copied = "true";
+    button.title = "Copied";
+    button.setAttribute("aria-label", "Citation copied");
+    clearTimeout(copyResetTimer);
+    copyResetTimer = setTimeout(() => {
+      delete button.dataset.copied;
+      button.title = "Copy citation";
+      button.setAttribute("aria-label", "Copy citation");
+    }, 2000);
   } catch {
     status.textContent = "Select the reference text above to copy it.";
+    status.classList.add("copy-error");
   }
 });

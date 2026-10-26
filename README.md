@@ -23,7 +23,7 @@ Upload the contents of this folder to a static host. All local URLs are relative
 - `index.html`: title, video, pipeline, interface, both studies, and reference.
 - `styles.css`: small stylesheet matching the CLEAR layout.
 - `script.js`: optional reference copying and configured resource URLs.
-- `charts.js`: interactive SVG charts with hover, touch, keyboard inspection, and legend toggles.
+- `charts.js`: interactive SVG charts with hover, touch, keyboard inspection, and legend toggles. Details float beside the cursor, on whichever side keeps them over the chart, and below or above it on narrow screens.
 - `study-data.js`: locally bundled numeric chart data; no network requests or private study records.
 - `site-config.js`: public paper and repository links.
 - `assets/`: report figures, PDF downloads, and favicon.

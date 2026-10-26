@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motif: Beyond Articulation</title>
+  <meta name="description" content="Grounding end-user program specifications in observed behavior. Explore Motif, its pipeline, interface, and results from two studies.">
+  <meta property="og:title" content="Motif: Beyond Articulation">
+  <meta property="og:description" content="Grounding end-user program specifications in observed behavior.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon-white.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site-config.js" defer></script>
+  <script src="study-data.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="charts.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="container">
+      <h1>Motif<span class="subtitle">Beyond Articulation: Grounding End-User Program<br class="desktop-break"> Specifications in Observed Behavior</span></h1>
+      <div class="publication-links" aria-label="Project resources">
+        <a class="resource-button" id="code-resource" href="#resources" aria-label="Source code, coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.5 21.6c.6.1.8-.2.8-.5v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6A4.7 4.7 0 0 1 6 7.3c-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.4 1.3a11.6 11.6 0 0 1 6.2 0C18 3.7 19 4 19 4c.7 1.7.3 3 .2 3.3a4.7 4.7 0 0 1 1.2 3.3c0 4.7-2.9 5.7-5.6 6 .4.4.8 1.1.8 2.2V22c0 .3.2.6.8.5A11.1 11.1 0 0 0 12 .9Z"/></svg><span data-resource-label>Code <small>soon</small></span></a>
+        <a class="resource-button" id="paper-resource" href="https://arxiv.org/abs/2607.10531" target="_blank" rel="noopener noreferrer" aria-label="Paper on arXiv" title="Earlier version: Motif: Discovering and Automating Personal Web Workflows"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l4 4v16H6zM14 2v5h5M9 11h6M9 15h6M9 19h4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-resource-label>Paper</span></a>
+        <a class="resource-button" href="#video"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m10 9 6 3-6 3Z"/></svg>Video</a>
+        <a class="resource-button" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V4M4 20h17M8 17v-5M13 17V8M18 17V4" fill="none" stroke="currentColor" stroke-width="2"/></svg>Results</a>
+        <a class="resource-button" href="#citation"><span class="quote-icon" aria-hidden="true">❝</span>Cite</a>
+      </div>
+      <div class="publication-authors"><strong>Shaokang Jiang<sup>1</sup>, Minseo Kang<sup>2</sup>, Daye Nam<sup>1</sup></strong><p><sup>1</sup> University of California, Irvine &nbsp;|&nbsp; <sup>2</sup> Yonsei University</p></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" id="overview" aria-labelledby="overview-title">
+      <div class="container">
+        <h2 id="overview-title">Abstract</h2>
+        <p class="abstract">People can use AI to write programs, but they still need to know what to automate and explain how it should work. Motif starts with what people already do: it observes everyday browsing, discovers recurring routines, and lets users review and refine them before generating programs. In a controlled study of 100 patterns, adding behavioral evidence doubled the number of working programs from 21 to 42. A multi-day deployment with eight participants surfaced useful automation opportunities they had overlooked. These findings suggest that observed behavior can complement what users express in words.</p>
+      </div>
+    </section>
+
+    <section class="section" id="behavior-grounded-specification" aria-labelledby="specification-title">
+      <div class="container">
+        <h2 id="specification-title">Behavior-Grounded Specification</h2>
+        <p class="concept-intro">Everyday activity becomes a library of recurring routines, each backed by observed actions and variations. Users select and refine a routine to specify what their program should do.</p>
+        <figure class="paper-diagram concept-figure">
+          <a href="assets/behavior-grounded-specification.pdf" target="_blank" rel="noopener" aria-label="Open the original behavior-grounded specification teaser"><img src="assets/teaser.webp" width="1702" height="663" alt="Observation of everyday activity across several days builds a specification library of grounded routines, including polishing email drafts with Gemini and sorting Google Scholar by year. User articulation selects and refines a routine to create a personalized program." loading="lazy"></a>
+          <!-- <figcaption>Everyday behavior builds a library of grounded routines. Users select and refine those routines into specifications for personalized programs.</figcaption> -->
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="video" aria-labelledby="video-title">
+      <div class="container">
+        <h2 id="video-title">Video</h2>
+        <p class="video-caption">A walkthrough of Motif, from discovering browser routines to reviewing and generating programs. <a href="https://youtu.be/NJD1axTE-qY" target="_blank" rel="noopener noreferrer">Watch on YouTube.</a></p>
+        <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/NJD1axTE-qY" title="Motif project demonstration" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      </div>
+    </section>
+
+    <section class="section" id="pipeline" aria-labelledby="pipeline-title">
+      <div class="container">
+        <h2 id="pipeline-title">Pipeline</h2>
+        <figure class="paper-diagram">
+          <figcaption class="caption-above"><strong>Motif pipeline.</strong> From everyday browsing activity to discovered patterns, reviewed designs, and personalized programs.</figcaption>
+          <a href="assets/pipeline.pdf" target="_blank" rel="noopener" aria-label="Open the complete pipeline figure"><img src="assets/pipeline.webp" width="2244" height="724" alt="Motif pipeline: data collection, action abstraction, pattern mining, program design, ranking, user review, and program generation." loading="lazy"></a>
+        </figure>
+        <p>Motif captures browser interactions and suggest potential programs. Users can then revise and deploy a Tampermonkey program.</p>
+      </div>
+    </section>
+
+    <section class="section" id="interface" aria-labelledby="interface-title">
+      <div class="container">
+        <h2 id="interface-title">Interface</h2>
+        <figure class="paper-diagram">
+          <a href="assets/interface.pdf" target="_blank" rel="noopener" aria-label="Open the full interface figure"><img src="assets/interface.webp" width="2400" height="1350" alt="Annotated Motif interface: monitoring and URL blacklist controls at upper right, the discovered-pattern menu at lower right, and an editable program design on the left." loading="lazy"></a>
+          <figcaption><strong>Motif interface.</strong> Monitoring controls let users pause observation and exclude URLs. The pattern menu lists discovered routines. Selecting a pattern opens a program design that users can edit, regenerate, remove, or turn into a userscript. Click the figure to view it at full size.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="results" aria-labelledby="results-title">
+      <div class="container">
+        <h2 id="results-title">Results</h2>
+        <h3>Study 1: Behavioral Specification improves program performance</h3>
+        <p>We evaluated <strong>200 programs across 100 patterns</strong> constructed from WebLINX<sup><a href="#footnote-weblinx" id="weblinx-ref" role="doc-noteref" aria-label="Footnote 1: WebLINX">1</a></sup>. Each pattern was generated under two conditions: a task description alone, or the same description supplemented with observed actions. Researchers assessed functionality and fidelity to the described goal.</p>
+        <div class="table-wrap paper-table-wrap" role="region" aria-label="Study 1 results table from the paper" tabindex="0"><table class="paper-table">
+          <caption>Study 1 Results: Behavioral specification improves both the functionality and pattern fidelity of the generated programs.</caption>
+          <thead>
+            <tr><th rowspan="2" scope="col">Condition</th><th colspan="2" scope="colgroup">Functionality</th><th colspan="3" scope="colgroup">Pattern Fidelity</th></tr>
+            <tr><th scope="col">Working</th><th scope="col">Not Working</th><th scope="col">Goal-only</th><th scope="col">Invented</th><th scope="col">Missing</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Behavior-grounded</th><td>42</td><td>58</td><td>85</td><td>6</td><td>9</td></tr>
+            <tr><th scope="row">Description-only</th><td>21</td><td>79</td><td>66</td><td>16</td><td>18</td></tr>
+          </tbody>
+        </table></div>
+        <p>Behavioral evidence <strong>doubled the number of working programs</strong> and reduced invented functionality. Goal-only programs stayed within the described goal, although they did not necessarily execute successfully.</p>
+        <!-- <p class="note">These patterns were constructed across WebLINX sessions, rather than from one person’s everyday activity. Historical website changes could invalidate the evidence: seven patterns worked only in the description-only condition.</p> -->
+        <aside class="footnote" id="footnote-weblinx" role="doc-footnote" tabindex="-1"><span>1.</span> <a href="https://mcgill-nlp.github.io/weblinx/" target="_blank" rel="noopener noreferrer">WebLINX: Real-World Website Navigation with Multi-Turn Dialogue</a> — Xing Han Lù, Zdeněk Kasner, and Siva Reddy (2024). <a href="#weblinx-ref" role="doc-backlink" aria-label="Return to the WebLINX reference">↩</a></aside>
+
+        <h3 class="study-two-title">Study 2: Real-World Deployment</h3>
+        <p><strong>Eight participants</strong> used Motif during multiple days of browsing, then selected, reviewed, and tested five programs each.</p>
+        <p>Motif surfaced personalized administrative workflows, including renewing multiple Facebook Marketplace listings in one action, finding and forwarding enrollment-proof emails to an employer, and batch-filling timesheet entries for non-service days.</p>
+        <figure class="study-result-figure interactive-figure" id="participant-results">
+          <div class="interactive-chart" id="participant-chart" aria-label="Interactive participant results"></div>
+          <noscript><img src="assets/study2-results.webp" width="1138" height="611" alt="Paper figure comparing discovered patterns and reviewed program outcomes."></noscript>
+          <figcaption><strong>Discovered patterns and program outcomes.</strong> <a href="assets/study2-results.pdf" target="_blank" rel="noopener" style="display: inline">Original figure (PDF).</a></figcaption>
+        </figure>
+        <figure class="study-result-figure interactive-figure" id="experience-results">
+          <div class="interactive-chart" id="experience-chart" aria-label="Interactive post-study survey box plots"></div>
+          <noscript><img src="assets/study2-experience.webp" width="1778" height="1115" alt="Paper box plots comparing vibe coding and Motif across eight survey dimensions."></noscript>
+          <figcaption><strong>Post-study survey results.</strong> Scores range from 1 to 5; higher is better. <a href="assets/study2-experience.pdf" target="_blank" rel="noopener" style="display: inline">Original figure (PDF).</a></figcaption>
+        </figure>
+        <blockquote>“I found that the pattern identification in motif is very useful, because it’s very subtle, so I didn’t realize it, but if I can have a program to help me do that, I feel it’s very useful.”<cite>— P4</cite></blockquote>
+        <!-- <p class="note">This was a small student sample, and participants selected the patterns they reviewed. The post-hoc comparison covers only 29 testable programs; grounded outcomes came from participant ratings. The follow-up took place 2–4 days later and does not establish long-term adoption.</p> -->
+      </div>
+    </section>
+
+    <section class="section" id="citation" aria-labelledby="citation-title">
+      <div class="container">
+        <h2 id="citation-title">Citation</h2>
+        <p>Cite us!</p>
+        <pre class="citation"><code id="reference-text">@misc{jiang2026motifdiscoveringautomatingpersonal,
+      title={Motif: Discovering and Automating Personal Web Workflows}, 
+      author={Shaokang Jiang and Daye Nam},
+      year={2026},
+      eprint={2607.10531},
+      archivePrefix={arXiv},
+      primaryClass={cs.HC},
+      url={https://arxiv.org/abs/2607.10531}, 
+}</code></pre>
+        <button class="copy-button" id="copy-reference">Copy reference</button><span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="design-credit">Page layout adpted from <a href="https://ibm.github.io/CLEAR/" target="_blank" rel="noopener noreferrer">Agentic CLEAR</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
